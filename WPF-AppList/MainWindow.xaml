@@ -1,0 +1,45 @@
+﻿<Window x:Class="WPF_AppList.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_AppList"
+        mc:Ignorable="d" 
+        FontSize="24" 
+        FontWeight="Light"
+        Title="WPF App List" 
+        Height="auto" 
+        Width="auto" 
+        ResizeMode="NoResize" 
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <StackPanel 
+            Margin="10, 10"   
+            Orientation="Vertical" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            >
+            <StackPanel.Resources>
+                <Style 
+                    TargetType="{x:Type Button}"
+                    >
+                    <Setter 
+                        Property="Padding" Value="20, 10"
+                        />
+                </Style>
+            </StackPanel.Resources>
+            <Button 
+                Content="Containers" 
+                Click="ButtonContainers_Click" 
+                />
+            <Button 
+                Content="Minesweeper" 
+                Click="ButtonMinesweeper_Click"
+                />
+            <Button 
+                Content="GDI" 
+                Click="ButtonGDI_Click" 
+                />
+        </StackPanel>
+    </Grid>
+</Window>
