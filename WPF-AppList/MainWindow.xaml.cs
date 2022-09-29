@@ -15,7 +15,12 @@ namespace WPF_AppList
 
         private void ButtonContainers_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not done yet!");
+            new WindowContainers().ShowDialog();
+        }
+
+        private void ButtonContainersHomework_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowContainersHomework().ShowDialog();
         }
 
         private void ButtonMinesweeper_Click(object sender, RoutedEventArgs e)

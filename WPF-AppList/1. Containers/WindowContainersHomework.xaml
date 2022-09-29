@@ -1,0 +1,67 @@
+﻿<Window x:Class="WPF_AppList.WindowContainersHomework"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_AppList"
+        mc:Ignorable="d"
+        Title="Schedule List"
+        Height="280"
+        Width="450"
+        MinHeight="280" 
+        MinWidth="450"
+        FontSize="16">
+
+    <ScrollViewer>
+        <Grid x:Name="SubjectTableGrid"
+              Margin="10, 10"
+              ShowGridLines="True">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style 
+                        TargetType="{x:Type TextBlock}">
+                    <Setter 
+                            Property="Padding" Value="5, 5" />
+                    <Setter 
+                            Property="Grid.Row" Value="0" />
+                </Style>
+            </Grid.Resources>
+
+            <TextBlock
+                Grid.Column="0"
+                FontSize="20"
+                Text="Day" />
+
+            <TextBlock
+                Grid.Column="1"
+                FontSize="20"
+                Text="Lesson" />
+
+            <TextBlock
+                Grid.Column="2"
+                FontSize="20"
+                Text="Time" />
+
+            <TextBlock
+                Grid.Column="3"
+                FontSize="20"
+                Text="Subject" />
+        </Grid>
+    </ScrollViewer>
+</Window>

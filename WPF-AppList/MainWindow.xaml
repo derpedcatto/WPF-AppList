@@ -12,34 +12,39 @@
         Width="auto" 
         ResizeMode="NoResize" 
         SizeToContent="WidthAndHeight">
+    
     <Grid>
         <StackPanel 
             Margin="10, 10"   
             Orientation="Vertical" 
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
-            >
+            VerticalAlignment="Stretch">
+            
             <StackPanel.Resources>
                 <Style 
-                    TargetType="{x:Type Button}"
-                    >
+                    TargetType="{x:Type Button}">
                     <Setter 
-                        Property="Padding" Value="20, 10"
-                        />
+                        Property="Padding" Value="20, 10" />
                 </Style>
             </StackPanel.Resources>
-            <Button 
-                Content="Containers" 
-                Click="ButtonContainers_Click" 
-                />
+
+            <StackPanel
+                Orientation="Horizontal">
+                <Button 
+                    Content="Containers Example" 
+                    Click="ButtonContainers_Click" />
+                <Button
+                    Content="Homework"
+                    Click="ButtonContainersHomework_Click" />
+            </StackPanel>
+               
             <Button 
                 Content="Minesweeper" 
-                Click="ButtonMinesweeper_Click"
-                />
+                Click="ButtonMinesweeper_Click" />
+            
             <Button 
                 Content="GDI" 
-                Click="ButtonGDI_Click" 
-                />
+                Click="ButtonGDI_Click" />
         </StackPanel>
     </Grid>
 </Window>
