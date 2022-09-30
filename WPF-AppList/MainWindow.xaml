@@ -12,39 +12,84 @@
         Width="auto" 
         ResizeMode="NoResize" 
         SizeToContent="WidthAndHeight">
-    
-    <Grid>
+
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style 
+                TargetType="{x:Type Button}">
+                <Setter 
+                    Property="Padding" Value="20, 10" />
+            </Style>
+            <Style
+                TargetType="{x:Type TextBlock}">
+                <Setter
+                    Property="Padding" Value="20, 5" />
+            </Style>
+        </StackPanel.Resources>
+
+        <StackPanel
+            Margin="10, 0"   
+            Orientation="Horizontal"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+
+            <Rectangle
+                Width="30"
+                Height="30"
+                Margin="0, 0, 0, 0">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Green" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <TextBlock
+                Padding="5, 10"
+                Text="= Example" />
+
+            
+            <Rectangle
+                Width="30"
+                Height="30"
+                Margin="30, 0, 10, 0">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="CornflowerBlue" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <TextBlock
+                Padding="0, 10"
+                Text="= Homework" />
+
+        </StackPanel>
+
         <StackPanel 
-            Margin="10, 10"   
+            Margin="10, 0, 10, 10"
             Orientation="Vertical" 
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch">
-            
-            <StackPanel.Resources>
-                <Style 
-                    TargetType="{x:Type Button}">
-                    <Setter 
-                        Property="Padding" Value="20, 10" />
-                </Style>
-            </StackPanel.Resources>
 
-            <StackPanel
-                Orientation="Horizontal">
+            <DockPanel
+                HorizontalAlignment="Stretch">
+                
                 <Button 
-                    Content="Containers Example" 
+                    Background="Green"
+                    Content="Containers" 
                     Click="ButtonContainers_Click" />
                 <Button
+                    Background="CornflowerBlue"
                     Content="Homework"
                     Click="ButtonContainersHomework_Click" />
-            </StackPanel>
+            </DockPanel>
                
             <Button 
+                Background="CornflowerBlue"
                 Content="Minesweeper" 
                 Click="ButtonMinesweeper_Click" />
             
             <Button 
+                Background="CornflowerBlue"
                 Content="GDI" 
                 Click="ButtonGDI_Click" />
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </Window>

@@ -21,7 +21,7 @@ namespace WPF_AppList
 
 
         /// <summary>
-        /// I'm to lazy to make proper logic, so constructor is BIG
+        /// I'm too lazy to make proper logic, so constructor is BIG
         /// </summary>
         public WindowContainersHomework()
         {
