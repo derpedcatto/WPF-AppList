@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WPF_AppList._2_Minesweeper;
 
 namespace WPF_AppList
 {
@@ -25,7 +26,7 @@ namespace WPF_AppList
 
         private void ButtonMinesweeper_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not done yet!");
+            new MinesweeperWindow().ShowDialog();
         }
 
         private void ButtonGDI_Click(object sender, RoutedEventArgs e)
