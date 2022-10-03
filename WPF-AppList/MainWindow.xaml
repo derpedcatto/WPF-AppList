@@ -13,6 +13,10 @@
         ResizeMode="NoResize" 
         SizeToContent="WidthAndHeight">
 
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <StackPanel>
         <StackPanel.Resources>
             <Style 
@@ -90,6 +94,16 @@
                 Background="CornflowerBlue"
                 Content="GDI" 
                 Click="ButtonGDI_Click" />
+
+            <Button 
+                Background="Green"
+                Content="Styles" 
+                Click="ButtonStyles_Click" />
+
+            <Button 
+                Background="Green"
+                Content="Triggers" 
+                Click="ButtonTriggers_Click" />
         </StackPanel>
     </StackPanel>
 </Window>
