@@ -59,6 +59,7 @@ namespace WPF_AppList._2_Minesweeper
             _cellController = new(this);
             _timerValue = new TimeSpan(0, 0, 0);
             _timer.Start();
+            LabelTimer.Content = _timerValue.ToString();
         }
     }
 }
