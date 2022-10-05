@@ -7,19 +7,21 @@ using System.Windows.Media;
 namespace WPF_AppList._2_Minesweeper
 {
     public delegate void RevealEventHandler(object sender, EventArgs e);
+    public delegate void FlagEventHandler(object sender, EventArgs e);
 
     public abstract class CellBase
     {
         public event RevealEventHandler RevealEvent;
+        public event FlagEventHandler FlagEvent;
 
         public Label Label { get; private set; }
         public bool IsRevealed { get; private set; }
         public bool IsChecked { get; private set; }
 
         private const char _symbolFlag = '\x2691';
-        private const char _symbolCell = ' ';
+        private const char _symbolUnrevealed = '⠀';
         private char _symbolRevealed;
-        private Color _colorCell = Colors.NavajoWhite;
+        private Color _colorUnrevealed = Colors.NavajoWhite;
         private Color _colorRevealed;
 
 
@@ -30,9 +32,12 @@ namespace WPF_AppList._2_Minesweeper
 
             Label = new()
             {
-                Content = _symbolCell,
-                Margin = new Thickness(1),
-                Background = new SolidColorBrush(_colorCell)
+                Content = _symbolUnrevealed,
+                Margin = new Thickness(0.5),
+                FontSize = 14,
+                Background = new SolidColorBrush(_colorUnrevealed),
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center
             };
             Label.MouseLeftButtonDown += MouseLeftClickEvent;
             Label.MouseRightButtonDown += MouseRightClickEvent;
@@ -42,35 +47,33 @@ namespace WPF_AppList._2_Minesweeper
         }
 
 
-        protected virtual void Reveal()
+        public virtual void Reveal()
         {
+            IsRevealed = true;
             Label.Content = _symbolRevealed;
             Label.Background = new SolidColorBrush(_colorRevealed);
             Label.MouseLeftButtonDown -= MouseLeftClickEvent;
             Label.MouseRightButtonDown -= MouseRightClickEvent;
         }
 
-        public void MouseLeftClickEvent(object sender, MouseEventArgs e)
+        private void MouseLeftClickEvent(object sender, MouseEventArgs e)
         {
             if (!IsRevealed && !IsChecked)
             {
-                IsRevealed = true;
                 Reveal();
                 RevealEvent?.Invoke(this, null);
             }
         }
 
-        public void MouseRightClickEvent(object sender, MouseEventArgs e)
+        private void MouseRightClickEvent(object sender, MouseEventArgs e)
         {
             if (IsRevealed)
                 return;
 
             IsChecked = !IsChecked;
+            Label.Content = IsChecked ? _symbolFlag : _symbolUnrevealed;
 
-            if (IsChecked)
-                Label.Content = _symbolFlag;
-            else
-                Label.Content = _symbolCell;
+            FlagEvent?.Invoke(this, null);
         }
     }
 }

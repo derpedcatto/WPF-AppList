@@ -8,24 +8,44 @@
         Title="Minesweeper" 
         Height="auto" 
         Width="auto"
-        FontSize="30">
+        FontSize="20"
+        SizeToContent="WidthAndHeight">
 
-    <Grid 
-        HorizontalAlignment="Center">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="gameTimer"
-            FontSize="20"
-            Content="00:00"/>
-        
-        <UniformGrid x:Name="cellWindowGrid">
-            
+        <Label x:Name="LabelTimer"
+               Grid.Column="0"
+               Grid.Row="0" />
+
+        <Label 
+            Content="Flags:"
+            HorizontalContentAlignment="Right"
+            Grid.Column="1"
+            Grid.Row="0" />
+
+        <Label x:Name="LabelFlagCount"
+               HorizontalContentAlignment="Left"
+               Content="0"
+               Grid.Column="2"
+               Grid.Row="0"/>
+
+        <UniformGrid x:Name="CellWindowGrid"
+                     Rows="15"
+                     Columns="15"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="1"
+                     >
+
         </UniformGrid>
     </Grid>
 </Window>
