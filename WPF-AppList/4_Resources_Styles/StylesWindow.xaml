@@ -9,67 +9,97 @@
         Height="450"
         Width="800">
 
+    <!-- Ресурсы окна - определения для его элементов -->
     <Window.Resources>
+        <!-- Стили - это наборы значений атрибутов для 
+             тех элементов, которые эти стили реализуют
+             (подключают) -->
         <Style TargetType="Button">
+            <!-- Данные стили (TargetType) автоматически
+                 подключаются ко всем элементам указанного
+                 типа (Button) -->
             <Setter Property="Background" Value="Fuchsia" />
+            <!-- Суть Background="Fuchsia", но в синтаксисе
+                 разметочного языка -->
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="7, 3" />
+            <!-- Новое значени - новый Setter -->
+            <Setter Property="Margin" Value="7" />
+            <Setter Property="Padding" Value="7,3" />
         </Style>
-        
-        <Style TargetType="{x:Type Label}">
+
+        <!-- Стили для всех Label -->
+        <Style TargetType="{x:Type Label}" >
             <Setter Property="FontSize" Value="23" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        
+
+        <!-- В ресурсах окна можно задавать разные стили -->
         <Style x:Key="CenteredContent">
-            <Setter Property="ItemsControl.HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="ItemsControl.VerticalContentAlignment" Value="Center" />
+            <!-- Именованный стиль, цели нет - автоматически
+                 не подключается, для использования элемент
+                 должен сослаться на этот ресурс -->
+            <Setter Property="Control.HorizontalContentAlignment"
+                    Value="Center" />
+            <!-- Поскольку у стиля не указана цель (Target)
+                 в нем доступны только те свойства, которые
+                 есть у любых элементов. К остальным
+                 свойствам нужно обращаться через ссылку на
+                 тип (например, Control) -->
+            <Setter Property="Control.VerticalContentAlignment"
+                    Value="Center" />
         </Style>
 
+        <!-- Стили можно наследовать (расширять) - BasedOn -->
         <Style x:Key="BgCentered" 
                BasedOn="{StaticResource CenteredContent}">
+            <!-- Данный стиль берет всё из CenteredContent
+                 и добавляет свои определения -->
 
-            <Setter Property="ItemsControl.Background">
+            <Setter Property="Control.Background">
+                <!-- Для комплексных значений тег разделяется
+                     и его контент - это Setter.Value -->
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0 0"
                                          EndPoint="1 0">
-                        <GradientStop Offset="0" Color="Blue" />
-                        <GradientStop Offset="1" Color="Yellow" />
+                        <GradientStop Offset="0" Color="DarkBlue"/>
+                        <GradientStop Offset="0.2" Color="Blue"/>
+                        <GradientStop Offset="0.7" Color="Gold"/>
+                        <GradientStop Offset="1" Color="Yellow"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
 
+        <!-- Ресурсы - именованные атрибуты -->
         <FontFamily x:Key="Comic">Comic Sans MS</FontFamily>
+
     </Window.Resources>
 
-    <StackPanel
-        Orientation="Vertical">
-        
-        <StackPanel
-            Orientation="Horizontal">
-
-            <Button Content="Button 1" Click="Button1_Click"/>
-            <Button Content="Button 2" Click="Button2_Click"/>
-            <Button Content="Button 3" Click="Button3_Click"/>
-            <Button Content="Button 4" Click="Button4_Click"/>
+    <!-- Контент окна - сами элементы -->
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Button Click="Button1_Click">Button 1</Button>
+            <Button Click="Button2_Click">Button 2</Button>
+            <Button Click="Button3_Click">Button 3</Button>
+            <Button Click="Button4_Click">Button 4</Button>
         </StackPanel>
-        
-        <StackPanel
-            Orientation="Vertical">
+        <StackPanel Orientation="Vertical">
+            <!-- Применение локального стиля ОТМЕНЯЕТ глобальный стиль -->
+            <Label Style="{StaticResource CenteredContent}">Label 1</Label>
 
-            <Label Style="{StaticResource CenteredContent}" Content="Label 1" />
-            <Label Style="{StaticResource BgCentered}" Content="Label 2" />
-            <Label Content="Label 3" />
-            <Label FontFamily="{StaticResource Comic}" Content="Label 4" />
+            <!-- Отдельные атрибуты - не отменяют стиль -->
+            <Label Foreground="Fuchsia">Label 2</Label>
+
+            <Label Style="{StaticResource BgCentered}" Height="60">Label 3</Label>
+            <Label FontFamily="{StaticResource Comic}">Label 4</Label>
         </StackPanel>
-        
-        <CheckBox Style="{ StaticResource BgCentered }" Content="Check Me"/>
-        
-        <StackPanel x:Name="Field"
-                    Orientation="Horizontal">
-
+        <!-- Для некоторых элементов применение
+             стилей носит неожиданный эффект -->
+        <CheckBox Style="{StaticResource BgCentered}">
+            Check Me
+        </CheckBox>
+        <StackPanel Orientation="Horizontal" x:Name="Field">
+            <!-- Сюда будем добавлять элементы из кода -->
         </StackPanel>
     </StackPanel>
 </Window>
