@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WPF_AppList._2_Minesweeper;
+using WPF_AppList._3_GDI_Canvas;
 using WPF_AppList._4_Resources_Styles;
 using WPF_AppList._5_Resources_Triggers;
 
@@ -33,7 +34,7 @@ namespace WPF_AppList
 
         private void ButtonGDI_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not done yet!");
+            new GDICanvasWindow().ShowDialog();
         }
 
         private void ButtonStyles_Click(object sender, RoutedEventArgs e)
