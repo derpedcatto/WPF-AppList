@@ -2,7 +2,9 @@
 using WPF_AppList._2_Minesweeper;
 using WPF_AppList._3_GDI_Canvas;
 using WPF_AppList._4_Resources_Styles;
+using WPF_AppList._5_4_Homework;
 using WPF_AppList._5_Resources_Triggers;
+using WPF_AppList._6_Drag_and_Drop;
 
 namespace WPF_AppList
 {
@@ -45,6 +47,16 @@ namespace WPF_AppList
         private void ButtonTriggers_Click(object sender, RoutedEventArgs e)
         {
             new TriggersWindow().ShowDialog();
+        }
+
+        private void ButtonStylesTriggersHomework_Click(object sender, RoutedEventArgs e)
+        {
+            new FormRegistrationWindow().ShowDialog();
+        }
+
+        private void ButtonDnD_Click(object sender, RoutedEventArgs e)
+        {
+            new DnDWindow().ShowDialog();
         }
     }
 }

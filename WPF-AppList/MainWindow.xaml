@@ -13,10 +13,6 @@
         ResizeMode="NoResize" 
         SizeToContent="WidthAndHeight">
 
-    <Window.Resources>
-        
-    </Window.Resources>
-
     <StackPanel>
         <StackPanel.Resources>
             <Style 
@@ -95,15 +91,42 @@
                 Content="GDI" 
                 Click="ButtonGDI_Click" />
 
-            <Button 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Button 
                 Background="Green"
                 Content="Styles" 
-                Click="ButtonStyles_Click" />
+                Click="ButtonStyles_Click"
+                Grid.Column="0"
+                Grid.Row="0"/>
+
+                <Button 
+                Background="Green"
+                Content="Triggers" 
+                Click="ButtonTriggers_Click"
+                Grid.Column="0"
+                Grid.Row="1" />
+
+                <Button
+                Background="CornflowerBlue"
+                Content="Homework"
+                Click="ButtonStylesTriggersHomework_Click"
+                Grid.Column="1"
+                Grid.RowSpan="2" />
+            </Grid>
 
             <Button 
                 Background="Green"
-                Content="Triggers" 
-                Click="ButtonTriggers_Click" />
+                Content="Drag n Drop" 
+                Click="ButtonDnD_Click" />
         </StackPanel>
     </StackPanel>
 </Window>
