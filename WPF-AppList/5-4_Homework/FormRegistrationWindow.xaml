@@ -5,15 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_AppList._5_4_Homework"
         mc:Ignorable="d"
-        Title="Form Registration" Height="450" Width="800">
+        Title="Form Registration"
+        Height="auto" 
+        Width="auto"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        >
 
     <Window.Resources>
+        <Style x:Key="HeaderLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="48" />
+            <Setter Property="FontWeight" Value="ExtraBlack" />
+        </Style>
         
+        <Style x:Key="FieldLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+        
+        <Style x:Key="FieldTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontStyle" Value="Normal" />
+        </Style>
+
+        <Style x:Key="ConfirmButtonStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style.Setters>
+            <Style.Triggers>
+                <!-- Bold text on mouse hover -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="FontWeight" Value="Medium" />
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+                
+                <!-- Animation -->
+                <EventTrigger RoutedEvent="Click">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="1" To="0.4"
+                                             Duration="0:0:0:0.2"
+                                             AutoReverse="True"
+                                             />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
-    
-    <StackPanel>
-        <Button Content="Button 1" />
-        <CheckBox Content="Checkbox 1" />
-        <Label Content="Label 1" />
+
+    <StackPanel Orientation="Vertical"
+                Margin="10">
+
+        <!-- Header -->
+        <Label Style="{StaticResource HeaderLabelStyle}"
+               Content="Form Registration"
+               HorizontalAlignment="Center"
+               />
+
+        <!-- Username -->
+        <Label Style="{StaticResource FieldLabelStyle}" 
+               Content="Username" />
+        <TextBox x:Name="UsernameTextBox" 
+                 Style="{StaticResource FieldTextBoxStyle}"
+                 />
+
+        <!-- E-mail -->
+        <Label Style="{StaticResource FieldLabelStyle}"
+               Content="E-mail" 
+               />
+        <TextBox x:Name="EmailTextBox"
+                 Style="{StaticResource FieldTextBoxStyle}"
+                 />
+
+        <!-- Password -->
+        <Label Style="{StaticResource FieldLabelStyle}"
+               Content="Password" 
+               />
+        <TextBox x:Name="PasswordTextBox" 
+                 Style="{StaticResource FieldTextBoxStyle}"
+                 />
+
+        <!-- Confirm button -->
+        <Button x:Name="ConfirmRegistrationButton"
+                Style="{StaticResource ConfirmButtonStyle}"
+                Click="ConfirmRegistrationButton_Click"
+                Content="Confirm" 
+                Margin="0 15 0 0"
+                />
     </StackPanel>
 </Window>
