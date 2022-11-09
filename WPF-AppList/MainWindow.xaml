@@ -30,66 +30,60 @@
         <StackPanel Margin="10, 0"   
                     Orientation="Horizontal"
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    >
+                    VerticalAlignment="Center">
 
-            <Rectangle
-                Width="30"
-                Height="30"
-                Margin="0, 0, 0, 0">
+            <Rectangle Width="30"
+                       Height="30"
+                       Margin="0, 0, 0, 0">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="Green" />
                 </Rectangle.Fill>
             </Rectangle>
 
-            <TextBlock
-                Padding="5, 10"
-                Text="= Example" />
+            <TextBlock Padding="5, 10"
+                       Text="= Example" />
 
 
-            <Rectangle
-                Width="30"
-                Height="30"
-                Margin="30, 0, 10, 0">
+            <Rectangle Width="30"
+                       Height="30"
+                       Margin="30, 0, 10, 0">
                 <Rectangle.Fill>
                     <SolidColorBrush Color="CornflowerBlue" />
                 </Rectangle.Fill>
             </Rectangle>
 
-            <TextBlock
-                Padding="0, 10"
-                Text="= Homework" />
+            <TextBlock Padding="0, 10"
+                       Text="= Homework" 
+                       />
 
         </StackPanel>
 
-        <StackPanel 
-            Margin="10, 0, 10, 10"
-            Orientation="Vertical" 
-            HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch">
+        <StackPanel Margin="10, 0, 10, 10"
+                    Orientation="Vertical" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch">
 
-            <DockPanel
-                HorizontalAlignment="Stretch">
+            <DockPanel HorizontalAlignment="Stretch">
 
-                <Button 
-                    Background="Green"
-                    Content="Containers" 
-                    Click="ButtonContainers_Click" />
-                <Button
-                    Background="CornflowerBlue"
-                    Content="Homework"
-                    Click="ButtonContainersHomework_Click" />
+                <Button Background="Green"
+                        Content="Containers" 
+                        Click="ButtonContainers_Click" 
+                        />
+                <Button Background="CornflowerBlue"
+                        Content="Homework"
+                        Click="ButtonContainersHomework_Click" 
+                        />
             </DockPanel>
 
-            <Button 
-                Background="CornflowerBlue"
-                Content="Minesweeper" 
-                Click="ButtonMinesweeper_Click" />
+            <Button Background="CornflowerBlue"
+                    Content="Minesweeper" 
+                    Click="ButtonMinesweeper_Click" 
+                    />
 
-            <Button 
-                Background="CornflowerBlue"
-                Content="GDI" 
-                Click="ButtonGDI_Click" />
+            <Button Background="CornflowerBlue"
+                    Content="GDI" 
+                    Click="ButtonGDI_Click" 
+                    />
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -101,32 +95,32 @@
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button 
-                Background="Green"
-                Content="Styles" 
-                Click="ButtonStyles_Click"
-                Grid.Column="0"
-                Grid.Row="0"/>
+                <Button Background="Green"
+                        Content="Styles" 
+                        Click="ButtonStyles_Click"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        />
 
-                <Button 
-                Background="Green"
-                Content="Triggers" 
-                Click="ButtonTriggers_Click"
-                Grid.Column="0"
-                Grid.Row="1" />
+                <Button Background="Green"
+                        Content="Triggers" 
+                        Click="ButtonTriggers_Click"
+                        Grid.Column="0"
+                        Grid.Row="1" 
+                        />
 
-                <Button
-                Background="CornflowerBlue"
-                Content="Homework"
-                Click="ButtonStylesTriggersHomework_Click"
-                Grid.Column="1"
-                Grid.RowSpan="2" />
+                <Button Background="CornflowerBlue"
+                        Content="Homework"
+                        Click="ButtonStylesTriggersHomework_Click"
+                        Grid.Column="1"
+                        Grid.RowSpan="2" 
+                        />
             </Grid>
 
-            <Button 
-                Background="Green"
-                Content="Drag n Drop" 
-                Click="ButtonDnD_Click" />
+            <Button Background="CornflowerBlue"
+                    Content="Drag n Drop" 
+                    Click="ButtonDnD_Click" 
+                    />
         </StackPanel>
     </StackPanel>
 </Window>
