@@ -5,19 +5,11 @@ using System.Windows.Shapes;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Windows.Media;
+using Microsoft.Win32;
+using System.IO;
 
 namespace WPF_AppList._6_Drag_and_Drop
 {
-    class BrickData
-    {
-        public double Width { get; set; }
-        public double Height { get; set; }
-        public double Left { get; set; }
-        public double Top { get; set; }
-        public int Type { get; set; }
-    }
-
-
     /// <summary>
     /// Interaction logic for DnDWindow.xaml
     /// </summary>
@@ -25,11 +17,9 @@ namespace WPF_AppList._6_Drag_and_Drop
     {
         #region Variables
 
-        private bool _isDragging;
-        private Rectangle? _phantom;
-        private Rectangle? _phantomSource;
+        private PhantomBrickData _phantom;
         private Point _phantomDragPoint;
-        private string _json;
+        private bool _isDragging;
 
         #endregion
         
@@ -39,8 +29,8 @@ namespace WPF_AppList._6_Drag_and_Drop
         public DnDWindow()
         {
             InitializeComponent();
-            _phantom = null;
-            _phantomSource = null;
+            _phantom.PhantomBrick = null;
+            _phantom.SourceBrick = null;
         }
 
         #endregion
@@ -49,22 +39,25 @@ namespace WPF_AppList._6_Drag_and_Drop
         #region Canvas interaction
 
         /// <summary>
-        /// Left click mouse move - makes copy of (phantom) of brick and moves it.
+        /// Left click + move - makes copy (phantom) of brick and moves it.
         /// Right click - remove
         /// </summary>
         private void Brick_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _phantomSource = sender as Rectangle;
+            _phantom.SourceBrick = sender as Rectangle;
+
+            // Start dragging brick with left click
             if (e.ChangedButton == MouseButton.Left)
             {
-                _isDragging = (_phantomSource != null);
-                _phantomDragPoint = e.GetPosition(_phantomSource);
+                _isDragging = (_phantom.SourceBrick != null);
+                _phantomDragPoint = e.GetPosition(_phantom.SourceBrick);
             }
+            // Delete brick with right click
             else if (e.ChangedButton == MouseButton.Right)
             {
-                if (_phantomSource != Brick && _phantomSource != Brick2)
+                if (_phantom.SourceBrick != BaseBrick1 && _phantom.SourceBrick != BaseBrick2)
                 {
-                    Field.Children.Remove(_phantomSource);
+                    Field.Children.Remove(_phantom.SourceBrick);
                 }
             }
         }
@@ -72,55 +65,56 @@ namespace WPF_AppList._6_Drag_and_Drop
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _isDragging = false;
-            _phantom = null!;
-            _phantomSource = null!;
+            _phantom.PhantomBrick = null!;
+            _phantom.SourceBrick = null!;
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDragging)
-            {
-                Point point = e.GetPosition(Field);
-                Title = point.X + " - " + point.Y;
+            if (!_isDragging)
+                return;
+            
+            Point point = e.GetPosition(Field);
+            Title = point.X + " - " + point.Y;
 
-                // first movement on button hold (no phantom)
-                if (_phantom == null)
+            // first movement on button hold (no phantom)
+            if (_phantom.PhantomBrick == null)
+            {
+                // Deriving from BaseBrick1 and BaseBrick2
+                if (_phantom.SourceBrick == BaseBrick1 || _phantom.SourceBrick == BaseBrick2)
                 {
-                    // Deriving from Brick and Brick2
-                    if (_phantomSource == Brick || _phantomSource == Brick2)
+                    _phantom.PhantomBrick = new Rectangle()
                     {
-                        _phantom = new Rectangle()
-                        {
-                            Width = _phantomSource!.Width,
-                            Height = _phantomSource.Height,
-                            Fill = _phantomSource.Fill,
-                            Stroke = _phantomSource.Stroke,
-                            StrokeThickness = _phantomSource.StrokeThickness,
-                            Opacity = .5
-                        };
-                        Field.Children.Add(_phantom);
-                    }
-                    // Moving derived bricks
-                    else
-                    {
-                        _phantom = _phantomSource;
-                        _phantom!.Opacity = .5;
-                    }
+                        Width = _phantom.SourceBrick!.Width,
+                        Height = _phantom.SourceBrick.Height,
+                        Fill = _phantom.SourceBrick.Fill,
+                        Stroke = _phantom.SourceBrick.Stroke,
+                        StrokeThickness = _phantom.SourceBrick.StrokeThickness,
+                        Opacity = .5
+                    };
+                    Field.Children.Add(_phantom.PhantomBrick);
                 }
-                Canvas.SetLeft(_phantom, point.X - _phantomDragPoint.X);
-                Canvas.SetTop(_phantom, point.Y - _phantomDragPoint.Y);
+                // Moving derived bricks
+                else
+                {
+                    _phantom.PhantomBrick = _phantom.SourceBrick;
+                    _phantom.PhantomBrick!.Opacity = .5;
+                }
             }
+
+            Canvas.SetLeft(_phantom.PhantomBrick, point.X - _phantomDragPoint.X);
+            Canvas.SetTop(_phantom.PhantomBrick, point.Y - _phantomDragPoint.Y);
         }
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (_phantom != null)
+            if (_phantom.PhantomBrick != null)
             {
-                _phantom!.Opacity = 1;
-                _phantom.MouseDown += Brick_MouseDown;
+                _phantom.PhantomBrick!.Opacity = 1;
+                _phantom.PhantomBrick.MouseDown += Brick_MouseDown;
 
                 _isDragging = false;
-                _phantom = null;
+                _phantom.PhantomBrick = null;
             }
         }
 
@@ -131,48 +125,70 @@ namespace WPF_AppList._6_Drag_and_Drop
 
         private void MenuSave_Click(object sender, RoutedEventArgs e)
         {
-            List<BrickData> bricks = new();
-            foreach(var child in Field.Children)
+            var saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Json files (*.json)|*.json";
+            saveDialog.FilterIndex = 2;
+            saveDialog.RestoreDirectory = true;
+            saveDialog.InitialDirectory = @"C:\";
+
+            if (saveDialog.ShowDialog() == true)
             {
-                if (child is Rectangle brick && (brick != Brick && brick != Brick2))
+                List<BrickData> bricks = new();
+                foreach (var child in Field.Children)
                 {
-                    bricks.Add(new BrickData()
+                    if (child is Rectangle brick && (brick != BaseBrick1 && brick != BaseBrick2))
                     {
-                        Height = brick.Height,
-                        Width = brick.Width,
-                        Left = Canvas.GetLeft(brick),
-                        Top = Canvas.GetTop(brick),
-                        Type = (brick.Fill.Equals(Brushes.Salmon) ? 1 : 2)
-                    });
+                        bricks.Add(new BrickData()
+                        {
+                            Height = brick.Height,
+                            Width = brick.Width,
+                            Left = Canvas.GetLeft(brick),
+                            Top = Canvas.GetTop(brick),
+                            Type = (brick.Fill.Equals(Brushes.Salmon) ? 1 : 2)
+                        });
+                    }
                 }
+
+                string json = JsonSerializer.Serialize(bricks);
+                File.WriteAllText(saveDialog.FileName, json);
             }
-            _json = JsonSerializer.Serialize(bricks);
         }
 
         private void MenuLoad_Click(object sender, RoutedEventArgs e)
         {
-            BrickData[] bricks;
-            try
+            List<BrickData> bricks = new();
+            var openDialog = new OpenFileDialog();
+            openDialog.Filter = "Json files (*.json)|*.json";
+
+            if (openDialog.ShowDialog() == true)
             {
-                bricks = JsonSerializer.Deserialize<BrickData[]>(_json);
-            }
-            catch
-            {
-                MessageBox.Show("Error!");
-                return;
+                try
+                {
+                    bricks = JsonSerializer.Deserialize<List<BrickData>>(File.ReadAllText(openDialog.FileName));
+                }
+                catch
+                {
+                    MessageBox.Show("Error!");
+                    return;
+                }
             }
 
+            // Remove all non-base bricks
             List<UIElement> toRemove = new();
             foreach (var child in Field.Children)
             {
-                if (child is Rectangle brick && (brick != Brick && brick != Brick2))
+                if (child is Rectangle brick && (brick != BaseBrick1 && brick != BaseBrick2))
                 {
                     toRemove.Add(brick);
                 }
             }
             foreach (var item in toRemove)
+            {
                 Field.Children.Remove(item);
+            }
 
+
+            // Add all bricks from file
             foreach (var data in bricks)
             {
                 var brick = new Rectangle

@@ -22,15 +22,20 @@
             </MenuItem>
         </Menu>
         <Canvas x:Name="Field">
-            <Rectangle x:Name="Brick" Width="70" Height="20"
-                       Fill="Salmon" Stroke="Maroon" StrokeThickness="2"
+            <Rectangle x:Name="BaseBrick1" 
+                       Width="70" Height="20"
+                       Fill="Salmon" 
+                       Stroke="Maroon" StrokeThickness="2"
                        Canvas.Left="629" Canvas.Top="368"
-                       MouseDown="Brick_MouseDown"/>
-            <Rectangle x:Name="Brick2" Width="70" Height="20"
-                       Fill="Lime" Stroke="Orange" StrokeThickness="2"
+                       MouseDown="Brick_MouseDown"
+                       />
+            <Rectangle x:Name="BaseBrick2" 
+                       Width="70" Height="20"
+                       Fill="Lime" 
+                       Stroke="Orange" StrokeThickness="2"
                        Canvas.Left="143" Canvas.Top="368"
-                       MouseDown="Brick_MouseDown"/>
+                       MouseDown="Brick_MouseDown"
+                       />
         </Canvas>
-
     </DockPanel>
 </Window>
